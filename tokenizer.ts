@@ -7,7 +7,7 @@ interface Token {
   type: TokenTypes,
   value: string
 }
-type Tokens = Token[]
+export type Tokens = Token[]
 
 export const LEFT_PAREN = '('
 export const RIGHT_PAREN = ')'
