@@ -1,8 +1,8 @@
 export enum NodeTypes {
-  Program,
-  CallExpression,
-  NumberLiteral,
-  StringLiteral
+  Program = 'Program',
+  CallExpression = 'CallExpression',
+  NumberLiteral = 'NumberLiteral',
+  StringLiteral = 'StringLiteral',
 }
 
 interface Node {
@@ -21,6 +21,7 @@ export interface CallExpressionNode extends Node {
 }
 
 export type ChildrenNode = NumberNode | StringNode | CallExpressionNode
+export type AllNode = ChildrenNode | RootNode
 
 export interface RootNode extends Node {
   body: ChildrenNode[]
