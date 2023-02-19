@@ -17,14 +17,18 @@ export interface StringNode extends Node {
 }
 export interface CallExpressionNode extends Node {
   name: string,
-  params: ChildrenNode[]
+  params: ChildrenNode[],
+  context?: any
 }
 
 export type ChildrenNode = NumberNode | StringNode | CallExpressionNode
 export type AllNode = ChildrenNode | RootNode
 
+export type ParentNode = RootNode | CallExpressionNode | undefined;
+
 export interface RootNode extends Node {
-  body: ChildrenNode[]
+  body: ChildrenNode[],
+  context?: ChildNode[]
 }
 
 export const createRootNode = (): RootNode => {

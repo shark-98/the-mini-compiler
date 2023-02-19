@@ -1,10 +1,9 @@
-import { AllNode, CallExpressionNode, ChildrenNode, NodeTypes, RootNode } from './ast';
+import { AllNode, CallExpressionNode, ChildrenNode, NodeTypes, RootNode, ParentNode } from './ast';
 
-type ParentNode = RootNode | CallExpressionNode | undefined;
-
+type VisitorMethod = (node: AllNode, parent: ParentNode) => void
 interface VisitorOption {
-  enter: (node: AllNode, parent: ParentNode) => void
-  exit: (node: AllNode, parent: ParentNode) => void
+  enter?: VisitorMethod
+  exit?: VisitorMethod
 }
 
 export interface Visitor {
@@ -24,9 +23,7 @@ export const traverser = (root: RootNode, visitor: Visitor) => {
   function traverserNode(node: AllNode, parent?: ParentNode) {
 
     const method = visitor[node.type]
-    if (method) {
-      method?.enter(node, parent)
-    }
+    method?.enter?.(node, parent)
 
     switch (node.type) {
       case NodeTypes.Program:
@@ -42,9 +39,7 @@ export const traverser = (root: RootNode, visitor: Visitor) => {
         break;
     }
 
-    if (method) {
-      method?.exit(node, parent)
-    }
+    method?.exit?.(node, parent)
   }
 
   traverserNode(root)
